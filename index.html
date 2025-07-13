@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
       direction: rtl;
       padding: 20px;
     }
@@ -56,20 +56,20 @@
       <select id="driver" required>
         <option value="">اختر السائق</option>
         <option>عدنان آل الكاظم</option>
-<option>محمد آل الكبيبة</option>
-<option>فيصل العقيل</option>
-<option>تركي الزهراني</option>
-<option>وليد الزباب</option>
+        <option>محمد آل الكبيبة</option>
+        <option>فيصل العقيل</option>
+        <option>تركي الزهراني</option>
+        <option>وليد الزباب</option>
       </select>
 
       <label for="employee">اسم الموظف:</label>
       <select id="employee" required>
         <option value="">اختر الموظف</option>
         <option>مشعل منيف ثواب الحربي</option>
-<option>يحيى سامي ابراهيم  النغموش</option>
-<option>منصور قطيم منصور آل قطيم</option>
-<option>محمد أحمد معيض الشهري</option>
-<option>عبدالرحمن مطلق مبارك الذاهلي</option>
+        <option>يحيى سامي ابراهيم  النغموش</option>
+        <option>منصور قطيم منصور آل قطيم</option>
+        <option>محمد أحمد معيض الشهري</option>
+        <option>عبدالرحمن مطلق مبارك الذاهلي</option>
       </select>
 
       <label for="notes">ملاحظات:</label>
@@ -88,16 +88,14 @@
       const employee = document.getElementById("employee").value;
       const notes = document.getElementById("notes").value;
 
-      fetch("https://script.google.com/macros/s/AKfycbxfY6sselKqss_u4hwyam4pOIVNrh4u_E17S8v2dk978KrS5uY2y7Ell_rL4q_5twPc/exec", {
+      const formData = new FormData();
+      formData.append("driver", driver);
+      formData.append("employee", employee);
+      formData.append("notes", notes);
+
+      fetch("https://script.google.com/macros/s/AKfycbwB7U7JxK3u3szaozRrqjVIQYptNDyXC6DATw0hQs3A9vl3-_oARp3H8k3IuWS7NnYj/exec", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          driver,
-          employee,
-          notes
-        })
+        body: formData
       })
       .then(response => response.text())
       .then(data => {
