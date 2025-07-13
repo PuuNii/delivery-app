@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>تسجيل التوصيلة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      direction: rtl;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .message {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>تسجيل توصيل الموظف</h2>
+    <form id="form">
+      <label for="driver">اسم السائق:</label>
+      <select id="driver" required>
+        <option value="">اختر السائق</option>
+        <option>عدنان آل الكاظم</option>
+<option>محمد آل الكبيبة</option>
+<option>فيصل العقيل</option>
+<option>تركي الزهراني</option>
+<option>وليد الزباب</option>
+      </select>
+
+      <label for="employee">اسم الموظف:</label>
+      <select id="employee" required>
+        <option value="">اختر الموظف</option>
+        <option>مشعل منيف ثواب الحربي</option>
+<option>يحيى سامي ابراهيم  النغموش</option>
+<option>منصور قطيم منصور آل قطيم</option>
+<option>محمد أحمد معيض الشهري</option>
+<option>عبدالرحمن مطلق مبارك الذاهلي</option>
+      </select>
+
+      <label for="notes">ملاحظات:</label>
+      <textarea id="notes" rows="3" placeholder="أدخل الملاحظات إن وجدت..."></textarea>
+
+      <button type="submit">تسجيل التوصيلة</button>
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const driver = document.getElementById("driver").value;
+      const employee = document.getElementById("employee").value;
+      const notes = document.getElementById("notes").value;
+
+      fetch("https://script.google.com/macros/s/AKfycbxfY6sselKqss_u4hwyam4pOIVNrh4u_E17S8v2dk978KrS5uY2y7Ell_rL4q_5twPc/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          driver,
+          employee,
+          notes
+        })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("message").textContent = "✅ تم تسجيل التوصيلة بنجاح";
+        document.getElementById("form").reset();
+      })
+      .catch(error => {
+        document.getElementById("message").textContent = "❌ حدث خطأ، يرجى المحاولة مرة أخرى";
+        console.error("Error:", error);
+      });
+    });
+  </script>
+</body>
+</html>
